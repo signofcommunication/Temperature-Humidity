@@ -5,8 +5,7 @@ export default async function createTanaman(
   Suhu,
   Kelembapan,
   Panen,
-  Keterangan,
-  res
+  Keterangan
 ) {
   try {
     const newTanaman = new Tanaman({

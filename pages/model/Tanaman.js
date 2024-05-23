@@ -2,9 +2,11 @@ import mongoose from "mongoose";
 
 const TanamanSchema = new mongoose.Schema(
   {
-    _id: {
+    Tanaman_ID: {
       type: mongoose.Schema.Types.ObjectId,
       auto: true, // Automatically generate ObjectID
+      index: true,
+      unique: true,
     },
     Nama: {
       type: String,
@@ -31,9 +33,9 @@ const TanamanSchema = new mongoose.Schema(
   }
 );
 
-TanamanSchema.virtual("Tanaman_ID").get(function () {
-  return this._id;
-});
+// TanamanSchema.virtual("Tanaman_ID").get(function () {
+//   return this._id;
+// });
 
 TanamanSchema.set("toJSON", {
   virtuals: true,
