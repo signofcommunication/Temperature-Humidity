@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// components/TanamanTable.js
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -12,9 +13,24 @@ import {
 import TanamanFormModal from "./TanamanFormModal";
 import axios from "axios";
 
-const TanamanTable = ({ data, fetchData }) => {
+const TanamanTable = () => {
+  const [data, setData] = useState([]);
   const [selectedTanaman, setSelectedTanaman] = useState(null);
   const [open, setOpen] = useState(false);
+  console.log(data);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("/api/tanaman");
+      setData(response.data.data);
+    } catch (error) {
+      console.error("Error fetching the data", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleDelete = async id => {
     try {
@@ -30,9 +46,14 @@ const TanamanTable = ({ data, fetchData }) => {
     setOpen(true);
   };
 
+  const handleAdd = () => {
+    setSelectedTanaman(null);
+    setOpen(true);
+  };
+
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
+      <Button variant="contained" color="primary" onClick={handleAdd}>
         Add Tanaman
       </Button>
       <TableContainer component={Paper}>
@@ -50,7 +71,7 @@ const TanamanTable = ({ data, fetchData }) => {
           </TableHead>
           <TableBody>
             {data.map(row => (
-              <TableRow key={row._id}>
+              <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
                   {row.Tanaman_ID}
                 </TableCell>
@@ -58,7 +79,7 @@ const TanamanTable = ({ data, fetchData }) => {
                 <TableCell align="right">{row.Suhu}</TableCell>
                 <TableCell align="right">{row.Kelembapan}</TableCell>
                 <TableCell align="right">
-                  {new Date(row.Panen).toLocaleDateString()}
+                  {new Date(row.createdAt).toLocaleDateString()}
                 </TableCell>
                 <TableCell>{row.Keterangan}</TableCell>
                 <TableCell>
@@ -72,7 +93,7 @@ const TanamanTable = ({ data, fetchData }) => {
                   <Button
                     variant="contained"
                     color="secondary"
-                    onClick={() => handleDelete(row._id)}
+                    onClick={() => handleDelete(row.id)}
                   >
                     Delete
                   </Button>

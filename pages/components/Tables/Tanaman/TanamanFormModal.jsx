@@ -1,3 +1,4 @@
+// components/TanamanFormModal.js
 import React, { useState, useEffect } from "react";
 import { Modal, Box, TextField, Button } from "@mui/material";
 import axios from "axios";
@@ -18,7 +19,6 @@ const TanamanFormModal = ({
   open,
   handleClose,
   selectedTanaman,
-  setSelectedTanaman,
   fetchData,
 }) => {
   const [formValues, setFormValues] = useState({
@@ -89,6 +89,7 @@ const TanamanFormModal = ({
             label="Nama"
             value={formValues.Nama}
             onChange={handleChange}
+            required
           />
           <TextField
             fullWidth
@@ -98,6 +99,7 @@ const TanamanFormModal = ({
             type="number"
             value={formValues.Suhu}
             onChange={handleChange}
+            required
           />
           <TextField
             fullWidth
@@ -107,6 +109,7 @@ const TanamanFormModal = ({
             type="number"
             value={formValues.Kelembapan}
             onChange={handleChange}
+            required
           />
           <TextField
             fullWidth
@@ -119,6 +122,7 @@ const TanamanFormModal = ({
             InputLabelProps={{
               shrink: true,
             }}
+            required
           />
           <TextField
             fullWidth
