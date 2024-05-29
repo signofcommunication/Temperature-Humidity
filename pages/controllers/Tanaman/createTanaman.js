@@ -19,6 +19,6 @@ export default async function createTanaman(
 
     return newTanaman;
   } catch (error) {
-    res.status(400).json({ success: false, error: error.message });
+    return error.message;
   }
 }
