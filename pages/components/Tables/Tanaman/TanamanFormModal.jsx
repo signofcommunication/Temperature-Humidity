@@ -1,4 +1,3 @@
-// components/TanamanFormModal.js
 import React, { useState, useEffect } from "react";
 import { Modal, Box, TextField, Button } from "@mui/material";
 import axios from "axios";
@@ -29,15 +28,15 @@ const TanamanFormModal = ({
     Keterangan: "",
   });
 
+  console.log(selectedTanaman);
+
   useEffect(() => {
     if (selectedTanaman) {
       setFormValues({
         Nama: selectedTanaman.Nama,
         Suhu: selectedTanaman.Suhu,
         Kelembapan: selectedTanaman.Kelembapan,
-        Panen: selectedTanaman.Panen
-          ? new Date(selectedTanaman.Panen).toISOString().split("T")[0]
-          : "",
+        Panen: selectedTanaman.Panen || "",
         Keterangan: selectedTanaman.Keterangan,
       });
     } else {
@@ -59,7 +58,10 @@ const TanamanFormModal = ({
     e.preventDefault();
     try {
       if (selectedTanaman) {
-        await axios.put(`/api/tanaman/${selectedTanaman._id}`, formValues);
+        await axios.patch(
+          `/api/tanaman/${selectedTanaman.Tanaman_ID}`,
+          formValues
+        );
       } else {
         await axios.post("/api/tanaman", formValues);
       }
@@ -116,12 +118,9 @@ const TanamanFormModal = ({
             margin="normal"
             name="Panen"
             label="Panen"
-            type="date"
+            type="number"
             value={formValues.Panen}
             onChange={handleChange}
-            InputLabelProps={{
-              shrink: true,
-            }}
             required
           />
           <TextField

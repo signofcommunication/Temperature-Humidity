@@ -1,4 +1,3 @@
-// components/TanamanTable.js
 import React, { useState, useEffect } from "react";
 import {
   Table,
@@ -17,7 +16,6 @@ const TanamanTable = () => {
   const [data, setData] = useState([]);
   const [selectedTanaman, setSelectedTanaman] = useState(null);
   const [open, setOpen] = useState(false);
-  console.log(data);
 
   const fetchData = async () => {
     try {
@@ -78,9 +76,7 @@ const TanamanTable = () => {
                 <TableCell>{row.Nama}</TableCell>
                 <TableCell align="right">{row.Suhu}</TableCell>
                 <TableCell align="right">{row.Kelembapan}</TableCell>
-                <TableCell align="right">
-                  {new Date(row.createdAt).toLocaleDateString()}
-                </TableCell>
+                <TableCell align="right">{row.Panen}</TableCell>
                 <TableCell>{row.Keterangan}</TableCell>
                 <TableCell>
                   <Button
