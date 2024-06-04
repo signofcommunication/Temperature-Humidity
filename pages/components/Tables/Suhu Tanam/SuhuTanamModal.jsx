@@ -104,7 +104,7 @@ const SuhuTanamFormModal = ({
             name="Catat_suhu"
             label="Tanggal Catat Suhu"
             type="date"
-            value={formValues.Catat_suhu["$numberDecimal"]}
+            value={formValues.Catat_suhu}
             onChange={handleChange}
             InputLabelProps={{
               shrink: true,

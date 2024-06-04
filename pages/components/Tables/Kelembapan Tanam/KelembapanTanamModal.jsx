@@ -72,7 +72,7 @@ const KelembapanTanamFormModal = ({
     }
   };
 
-  console.log(tanamOptions);
+  console.log(formValues);
 
   return (
     <Modal
@@ -123,7 +123,7 @@ const KelembapanTanamFormModal = ({
             name="Kelembapan"
             label="Kelembapan"
             type="number"
-            value={formValues.Kelembapan["$numberDecimal"]}
+            value={formValues.Kelembapan}
             onChange={handleChange}
             required
           />
