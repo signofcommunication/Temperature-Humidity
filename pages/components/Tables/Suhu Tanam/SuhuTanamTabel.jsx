@@ -83,32 +83,36 @@ const SuhuTanamTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {suhuTanamData.map(suhuTanam => (
-              <TableRow key={suhuTanam._id}>
-                <TableCell>{suhuTanam.Tanam_no}</TableCell>
-                <TableCell>
-                  {new Date(suhuTanam.Catat_suhu).toLocaleDateString()}
-                </TableCell>
-                <TableCell>{suhuTanam.Suhu["$numberDecimal"]}</TableCell>
-                <TableCell>{suhuTanam.Keterangan}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={() => handleOpenModal(suhuTanam)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    onClick={() => handleDelete(suhuTanam._id)}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {suhuTanamData.length === 0 ? (
+              <h1>Loading</h1>
+            ) : (
+              suhuTanamData.map(suhuTanam => (
+                <TableRow key={suhuTanam._id}>
+                  <TableCell>{suhuTanam.Tanam_no}</TableCell>
+                  <TableCell>
+                    {new Date(suhuTanam.Catat_suhu).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>{suhuTanam.Suhu["$numberDecimal"]}</TableCell>
+                  <TableCell>{suhuTanam.Keterangan}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => handleOpenModal(suhuTanam)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      onClick={() => handleDelete(suhuTanam._id)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>

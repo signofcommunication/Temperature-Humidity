@@ -68,34 +68,38 @@ const TanamanTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map(row => (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.Tanaman_ID}
-                </TableCell>
-                <TableCell>{row.Nama}</TableCell>
-                <TableCell align="right">{row.Suhu}</TableCell>
-                <TableCell align="right">{row.Kelembapan}</TableCell>
-                <TableCell align="right">{row.Panen}</TableCell>
-                <TableCell>{row.Keterangan}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleEdit(row)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => handleDelete(row.id)}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {data.length === 0 ? (
+              <h1>Loading....</h1>
+            ) : (
+              data.map(row => (
+                <TableRow key={row.id}>
+                  <TableCell component="th" scope="row">
+                    {row.Tanaman_ID}
+                  </TableCell>
+                  <TableCell>{row.Nama}</TableCell>
+                  <TableCell align="right">{row.Suhu}</TableCell>
+                  <TableCell align="right">{row.Kelembapan}</TableCell>
+                  <TableCell align="right">{row.Panen}</TableCell>
+                  <TableCell>{row.Keterangan}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleEdit(row)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => handleDelete(row.id)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>
