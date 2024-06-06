@@ -8,6 +8,8 @@ import {
   TableRow,
   Paper,
   Button,
+  Box,
+  CircularProgress,
 } from "@mui/material";
 import TanamFormModal from "./TanamFormModal";
 import axios from "axios";
@@ -71,50 +73,56 @@ const TanamTable = () => {
         <Table aria-label="tanam table">
           <TableHead>
             <TableRow>
-              <TableCell>Tanam_no</TableCell>
-              <TableCell>Tanaman_ID</TableCell>
-              <TableCell>Tgl_semai</TableCell>
-              <TableCell>Tgl_pindah</TableCell>
-              <TableCell>Tgl_panen</TableCell>
+              <TableCell>No Tanam</TableCell>
+              <TableCell>ID</TableCell>
+              <TableCell>Tanggal Semai</TableCell>
+              <TableCell>Tanggal Pindah</TableCell>
+              <TableCell>Tanggal Panen</TableCell>
               <TableCell>Keterangan</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map(row => (
-              <TableRow key={row._id}>
-                <TableCell component="th" scope="row">
-                  {row.Tanam_no}
-                </TableCell>
-                <TableCell>{row.Tanaman_ID ? row.Tanaman_ID : ""}</TableCell>
-                <TableCell>
-                  {new Date(row.Tgl_semai).toLocaleDateString()}
-                </TableCell>
-                <TableCell>
-                  {new Date(row.Tgl_pindah).toLocaleDateString()}
-                </TableCell>
-                <TableCell>
-                  {new Date(row.Tgl_panen).toLocaleDateString()}
-                </TableCell>
-                <TableCell>{row.Keterangan}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleEdit(row)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => handleDelete(row.Tanam_no)}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {data ? (
+              data.map(row => (
+                <TableRow key={row._id}>
+                  <TableCell component="th" scope="row">
+                    {row.Tanam_no}
+                  </TableCell>
+                  <TableCell>{row.Tanaman_ID ? row.Tanaman_ID : ""}</TableCell>
+                  <TableCell>
+                    {new Date(row.Tgl_semai).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    {new Date(row.Tgl_pindah).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    {new Date(row.Tgl_panen).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>{row.Keterangan}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleEdit(row)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => handleDelete(row.Tanam_no)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <Box sx={{ display: "flex" }}>
+                <CircularProgress />
+              </Box>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

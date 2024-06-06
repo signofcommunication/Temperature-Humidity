@@ -8,6 +8,8 @@ import {
   TableRow,
   Paper,
   Button,
+  Box,
+  CircularProgress,
 } from "@mui/material";
 import TanamanFormModal from "./TanamanFormModal";
 import axios from "axios";
@@ -58,7 +60,7 @@ const TanamanTable = () => {
         <Table aria-label="tanaman table">
           <TableHead>
             <TableRow>
-              <TableCell>Tanaman_ID</TableCell>
+              <TableCell>ID Tanaman</TableCell>
               <TableCell>Nama</TableCell>
               <TableCell align="right">Suhu</TableCell>
               <TableCell align="right">Kelembapan</TableCell>
@@ -68,34 +70,40 @@ const TanamanTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map(row => (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.Tanaman_ID}
-                </TableCell>
-                <TableCell>{row.Nama}</TableCell>
-                <TableCell align="right">{row.Suhu}</TableCell>
-                <TableCell align="right">{row.Kelembapan}</TableCell>
-                <TableCell align="right">{row.Panen}</TableCell>
-                <TableCell>{row.Keterangan}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleEdit(row)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => handleDelete(row.id)}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {data ? (
+              data.map(row => (
+                <TableRow key={row.id}>
+                  <TableCell component="th" scope="row">
+                    {row.Tanaman_ID}
+                  </TableCell>
+                  <TableCell>{row.Nama}</TableCell>
+                  <TableCell align="right">{row.Suhu}</TableCell>
+                  <TableCell align="right">{row.Kelembapan}</TableCell>
+                  <TableCell align="right">{row.Panen}</TableCell>
+                  <TableCell>{row.Keterangan}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleEdit(row)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => handleDelete(row.id)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <Box sx={{ display: "flex" }}>
+                <CircularProgress />
+              </Box>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

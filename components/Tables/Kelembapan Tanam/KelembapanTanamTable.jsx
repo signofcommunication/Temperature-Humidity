@@ -8,6 +8,8 @@ import {
   TableRow,
   Paper,
   Button,
+  Box,
+  CircularProgress,
 } from "@mui/material";
 import axios from "axios";
 import KelembapanTanamModal from "./KelembapanTanamModal";
@@ -81,36 +83,42 @@ const KelembapanTanamTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {kelembapanTanamData.map(kelembapanTanam => (
-              <TableRow key={kelembapanTanam._id}>
-                <TableCell>{kelembapanTanam.Tanam_no}</TableCell>
-                <TableCell>
-                  {new Date(
-                    kelembapanTanam.Catat_kelembapan
-                  ).toLocaleDateString()}
-                </TableCell>
-                <TableCell>
-                  {kelembapanTanam.Kelembapan["$numberDecimal"]}
-                </TableCell>
-                <TableCell>{kelembapanTanam.Keterangan}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={() => handleOpenModal(kelembapanTanam)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    onClick={() => handleDelete(kelembapanTanam._id)}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {kelembapanTanamData ? (
+              kelembapanTanamData.map(kelembapanTanam => (
+                <TableRow key={kelembapanTanam._id}>
+                  <TableCell>{kelembapanTanam.Tanam_no}</TableCell>
+                  <TableCell>
+                    {new Date(
+                      kelembapanTanam.Catat_kelembapan
+                    ).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    {kelembapanTanam.Kelembapan["$numberDecimal"]}
+                  </TableCell>
+                  <TableCell>{kelembapanTanam.Keterangan}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => handleOpenModal(kelembapanTanam)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      onClick={() => handleDelete(kelembapanTanam._id)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <Box sx={{ display: "flex" }}>
+                <CircularProgress />
+              </Box>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

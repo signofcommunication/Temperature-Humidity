@@ -3,16 +3,17 @@ import {
   TanamTable,
   SuhuTanamTable,
   KelembapanTanamTable,
-} from "./components";
+} from "../components";
+import React from "react";
 
 const Home = () => {
   return (
-    <div>
+    <React.Fragment>
       <TanamanTable />
       <TanamTable />
       <SuhuTanamTable />
       <KelembapanTanamTable />
-    </div>
+    </React.Fragment>
   );
 };
 
