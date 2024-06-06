@@ -1,6 +1,9 @@
 import connectDB from "@/pages/lib/connectDB";
-import { Suhu_Tanam, Tanam } from "@/pages/model";
+// import { Suhu_Tanam, Tanam } from "@/pages/model";
+// Tanam
 import getSuhuTanam from "@/pages/controllers/Suhu_Tanam/getSuhuTanam";
+import Suhu_Tanam from "@/pages/model/Suhu_Tanam";
+import Tanam from "@/pages/model/Tanam";
 
 export default async function handler(req, res) {
   const { method } = req;

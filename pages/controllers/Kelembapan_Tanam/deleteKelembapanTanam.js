@@ -1,4 +1,6 @@
-import { Kelembapan_Tanam } from "@/pages/model";
+import Kelembapan_Tanam from "@/pages/model/Kelembapan_Tanam";
+
+// import { Kelembapan_Tanam } from "@/pages/model";
 
 export default async function deleteKelembapanTanam(id) {
   try {

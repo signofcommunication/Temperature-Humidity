@@ -1,4 +1,4 @@
-import { Kelembapan_Tanam } from "@/pages/model";
+import Kelembapan_Tanam from "@/pages/model/Kelembapan_Tanam";
 
 export default async function updateKelembapanTanam(id, response) {
   try {

@@ -1,4 +1,5 @@
-import { Tanam, Tanaman } from "@/pages/model";
+import Tanam from "@/pages/model/Tanam";
+import Tanaman from "@/pages/model/Tanaman";
 
 export default async function createTanam(
   Tanaman_ID,

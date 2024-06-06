@@ -1,5 +1,7 @@
+import createTanaman from "@/pages/controllers/Tanaman/createTanaman";
+import getAllTanamans from "@/pages/controllers/Tanaman/getAllTanamans";
 import connectDB from "@/pages/lib/connectDB";
-import { getAllTanamans, createTanaman } from "@/pages/controllers/Tanaman";
+// import { getAllTanamans, createTanaman } from "@/pages/controllers/Tanaman";
 
 export default async function handler(req, res) {
   await connectDB();
