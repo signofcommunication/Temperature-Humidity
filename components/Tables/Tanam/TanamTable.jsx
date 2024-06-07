@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-} from "@mui/material";
 import TanamFormModal from "./TanamFormModal";
 import axios from "axios";
+import styles from "./TanamTable.module.css";
 
 const TanamTable = () => {
   const [data, setData] = useState([]);
@@ -63,65 +54,70 @@ const TanamTable = () => {
   console.log(data);
 
   return (
-    <div>
-      <Button variant="contained" color="primary" onClick={handleAdd}>
+    <>
+      <button
+        className={`${styles.button} ${styles.buttonPrimary}`}
+        onClick={handleAdd}
+      >
         Add Tanam
-      </Button>
-      <TableContainer component={Paper}>
-        <Table aria-label="tanam table">
-          <TableHead>
-            <TableRow>
-              <TableCell>No Tanam</TableCell>
-              <TableCell>ID</TableCell>
-              <TableCell>Tanggal Semai</TableCell>
-              <TableCell>Tanggal Pindah</TableCell>
-              <TableCell>Tanggal Panen</TableCell>
-              <TableCell>Keterangan</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
+      </button>
+      <div className={styles.tableContainer}>
+        <table className={styles.table} aria-label="tanam table">
+          <thead>
+            <tr>
+              <th className={styles.cell}>No Tanam</th>
+              <th className={styles.cell}>ID</th>
+              <th className={styles.cell}>Tanggal Semai</th>
+              <th className={styles.cell}>Tanggal Pindah</th>
+              <th className={styles.cell}>Tanggal Panen</th>
+              <th className={styles.cell}>Keterangan</th>
+              <th className={styles.cell}>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
             {data.length === 0 ? (
-              <h1>Loading....</h1>
+              <tr>
+                <td className={styles.cell} colSpan="7">
+                  Loading....
+                </td>
+              </tr>
             ) : (
               data.map(row => (
-                <TableRow key={row._id}>
-                  <TableCell component="th" scope="row">
-                    {row.Tanam_no}
-                  </TableCell>
-                  <TableCell>{row.Tanaman_ID ? row.Tanaman_ID : ""}</TableCell>
-                  <TableCell>
+                <tr key={row._id}>
+                  <td className={styles.cell}>{row.Tanam_no}</td>
+                  <td className={styles.cell}>
+                    {row.Tanaman_ID ? row.Tanaman_ID : ""}
+                  </td>
+                  <td className={styles.cell}>
                     {new Date(row.Tgl_semai).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>
+                  </td>
+                  <td className={styles.cell}>
                     {new Date(row.Tgl_pindah).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>
+                  </td>
+                  <td className={styles.cell}>
                     {new Date(row.Tgl_panen).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>{row.Keterangan}</TableCell>
-                  <TableCell>
-                    <Button
-                      variant="contained"
-                      color="primary"
+                  </td>
+                  <td className={styles.cell}>{row.Keterangan}</td>
+                  <td className={styles.cell}>
+                    <button
+                      className={`${styles.button} ${styles.buttonPrimary}`}
                       onClick={() => handleEdit(row)}
                     >
                       Edit
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="secondary"
+                    </button>
+                    <button
+                      className={`${styles.button} ${styles.buttonSecondary}`}
                       onClick={() => handleDelete(row.Tanam_no)}
                     >
                       Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
+                    </button>
+                  </td>
+                </tr>
               ))
             )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+          </tbody>
+        </table>
+      </div>
       <TanamFormModal
         open={open}
         handleClose={() => {
@@ -132,7 +128,7 @@ const TanamTable = () => {
         fetchData={fetchData}
         tanamanOptions={tanamanOptions}
       />
-    </div>
+    </>
   );
 };
 

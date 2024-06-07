@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-} from "@mui/material";
 import axios from "axios";
+import styles from "./SuhuTanamTable.module.css";
 import SuhuTanamFormModal from "./SuhuTanamModal";
 
 const SuhuTanamTable = () => {
@@ -60,62 +51,57 @@ const SuhuTanamTable = () => {
     }
   };
 
-  console.log(suhuTanamData);
-
   return (
     <>
-      <Button
-        variant="contained"
-        color="primary"
+      <button
+        className={`${styles.button} ${styles.buttonPrimary}`}
         onClick={() => handleOpenModal()}
       >
         Add Suhu Tanam
-      </Button>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Tanam No</TableCell>
-              <TableCell>Catat Suhu</TableCell>
-              <TableCell>Suhu</TableCell>
-              <TableCell>Keterangan</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
+      </button>
+      <div className={styles.tableContainer}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Tanam No</th>
+              <th>Catat Suhu</th>
+              <th>Suhu</th>
+              <th>Keterangan</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
             {suhuTanamData.length === 0 ? (
-              <h1>Loading</h1>
+              <tr>
+                <td>Loading</td>
+              </tr>
             ) : (
               suhuTanamData.map(suhuTanam => (
-                <TableRow key={suhuTanam._id}>
-                  <TableCell>{suhuTanam.Tanam_no}</TableCell>
-                  <TableCell>
-                    {new Date(suhuTanam.Catat_suhu).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>{suhuTanam.Suhu["$numberDecimal"]}</TableCell>
-                  <TableCell>{suhuTanam.Keterangan}</TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      color="primary"
+                <tr key={suhuTanam._id}>
+                  <td>{suhuTanam.Tanam_no}</td>
+                  <td>{new Date(suhuTanam.Catat_suhu).toLocaleDateString()}</td>
+                  <td>{suhuTanam.Suhu["$numberDecimal"]}</td>
+                  <td>{suhuTanam.Keterangan}</td>
+                  <td>
+                    <button
+                      className={`${styles.button} ${styles.buttonOutline} ${styles.buttonPrimary}`}
                       onClick={() => handleOpenModal(suhuTanam)}
                     >
                       Edit
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      color="secondary"
+                    </button>
+                    <button
+                      className={`${styles.button} ${styles.buttonOutline} ${styles.buttonSecondary}`}
                       onClick={() => handleDelete(suhuTanam._id)}
                     >
                       Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
+                    </button>
+                  </td>
+                </tr>
               ))
             )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+          </tbody>
+        </table>
+      </div>
       <SuhuTanamFormModal
         open={modalOpen}
         handleClose={handleCloseModal}

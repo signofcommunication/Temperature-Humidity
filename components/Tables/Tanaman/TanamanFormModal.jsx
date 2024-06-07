@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Box, TextField, Button } from "@mui/material";
 import axios from "axios";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import styles from "./TanamanFormModal.module.css";
 
 const TanamanFormModal = ({
   open,
@@ -27,8 +15,6 @@ const TanamanFormModal = ({
     Panen: "",
     Keterangan: "",
   });
-
-  console.log(selectedTanaman);
 
   useEffect(() => {
     if (selectedTanaman) {
@@ -72,71 +58,98 @@ const TanamanFormModal = ({
     }
   };
 
+  if (!open) return null;
+
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-title"
-      aria-describedby="modal-description"
-    >
-      <Box sx={style}>
-        <h2 id="modal-title">
-          {selectedTanaman ? "Edit Tanaman" : "Add Tanaman"}
-        </h2>
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalContent}>
+        <h2>{selectedTanaman ? "Edit Tanaman" : "Add Tanaman"}</h2>
         <form onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            margin="normal"
-            name="Nama"
-            label="Nama"
-            value={formValues.Nama}
-            onChange={handleChange}
-            required
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            name="Suhu"
-            label="Suhu"
-            type="number"
-            value={formValues.Suhu}
-            onChange={handleChange}
-            required
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            name="Kelembapan"
-            label="Kelembapan"
-            type="number"
-            value={formValues.Kelembapan}
-            onChange={handleChange}
-            required
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            name="Panen"
-            label="Panen"
-            type="number"
-            value={formValues.Panen}
-            onChange={handleChange}
-            required
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            name="Keterangan"
-            label="Keterangan"
-            value={formValues.Keterangan}
-            onChange={handleChange}
-          />
-          <Button type="submit" variant="contained" color="primary">
+          <div className={styles.formGroup}>
+            <label htmlFor="Nama" className={styles.label}>
+              Nama
+            </label>
+            <input
+              type="text"
+              id="Nama"
+              name="Nama"
+              value={formValues.Nama}
+              onChange={handleChange}
+              required
+              className={styles.input}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="Suhu" className={styles.label}>
+              Suhu
+            </label>
+            <input
+              type="number"
+              id="Suhu"
+              name="Suhu"
+              value={formValues.Suhu}
+              onChange={handleChange}
+              required
+              className={styles.input}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="Kelembapan" className={styles.label}>
+              Kelembapan
+            </label>
+            <input
+              type="number"
+              id="Kelembapan"
+              name="Kelembapan"
+              value={formValues.Kelembapan}
+              onChange={handleChange}
+              required
+              className={styles.input}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="Panen" className={styles.label}>
+              Panen
+            </label>
+            <input
+              type="number"
+              id="Panen"
+              name="Panen"
+              value={formValues.Panen}
+              onChange={handleChange}
+              required
+              className={styles.input}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="Keterangan" className={styles.label}>
+              Keterangan
+            </label>
+            <input
+              type="text"
+              id="Keterangan"
+              name="Keterangan"
+              value={formValues.Keterangan}
+              onChange={handleChange}
+              className={styles.input}
+            />
+          </div>
+          <button
+            type="submit"
+            className={`${styles.button} ${styles.buttonPrimary}`}
+          >
             {selectedTanaman ? "Update" : "Create"}
-          </Button>
+          </button>
+          <button
+            type="button"
+            className={`${styles.button} ${styles.buttonClose}`}
+            onClick={handleClose}
+          >
+            Close
+          </button>
         </form>
-      </Box>
-    </Modal>
+      </div>
+    </div>
   );
 };
 

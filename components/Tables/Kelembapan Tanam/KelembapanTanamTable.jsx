@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-} from "@mui/material";
 import axios from "axios";
-import KelembapanTanamModal from "./KelembapanTanamModal";
+import styles from "./KelembapanTanamTable.module.css";
+import KelembapanTanamFormModal from "./KelembapanTanamFormModal"; // Ensure correct import
 
 const KelembapanTanamTable = () => {
   const [kelembapanTanamData, setKelembapanTanamData] = useState([]);
@@ -62,63 +53,58 @@ const KelembapanTanamTable = () => {
 
   return (
     <>
-      <Button
-        variant="contained"
-        color="primary"
+      <button
+        className={`${styles.button} ${styles.buttonPrimary}`}
         onClick={() => handleOpenModal()}
       >
         Add Kelembapan Tanam
-      </Button>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Tanam No</TableCell>
-              <TableCell>Catat Kelembapan</TableCell>
-              <TableCell>Kelembapan</TableCell>
-              <TableCell>Keterangan</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {kelembapanTanamData.length === 0 ? (
-              <h1>Loading.....</h1>
-            ) : (
-              kelembapanTanamData.map(kelembapanTanam => (
-                <TableRow key={kelembapanTanam._id}>
-                  <TableCell>{kelembapanTanam.Tanam_no}</TableCell>
-                  <TableCell>
-                    {new Date(
-                      kelembapanTanam.Catat_kelembapan
-                    ).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>
-                    {kelembapanTanam.Kelembapan["$numberDecimal"]}
-                  </TableCell>
-                  <TableCell>{kelembapanTanam.Keterangan}</TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      onClick={() => handleOpenModal(kelembapanTanam)}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      onClick={() => handleDelete(kelembapanTanam._id)}
-                    >
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <KelembapanTanamModal
+      </button>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>Tanam No</th>
+            <th>Catat Kelembapan</th>
+            <th>Kelembapan</th>
+            <th>Keterangan</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {kelembapanTanamData.length === 0 ? (
+            <tr>
+              <td colSpan="5">Loading.....</td>
+            </tr>
+          ) : (
+            kelembapanTanamData.map(kelembapanTanam => (
+              <tr key={kelembapanTanam._id}>
+                <td>{kelembapanTanam.Tanam_no}</td>
+                <td>
+                  {new Date(
+                    kelembapanTanam.Catat_kelembapan
+                  ).toLocaleDateString()}
+                </td>
+                <td>{kelembapanTanam.Kelembapan["$numberDecimal"]}</td>
+                <td>{kelembapanTanam.Keterangan}</td>
+                <td>
+                  <button
+                    className={`${styles.button} ${styles.buttonPrimary}`}
+                    onClick={() => handleOpenModal(kelembapanTanam)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className={`${styles.button} ${styles.buttonSecondary}`}
+                    onClick={() => handleDelete(kelembapanTanam._id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+      <KelembapanTanamFormModal
         open={modalOpen}
         handleClose={handleCloseModal}
         selectedKelembapanTanam={selectedKelembapanTanam}
