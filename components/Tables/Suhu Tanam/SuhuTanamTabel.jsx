@@ -11,7 +11,9 @@ const SuhuTanamTable = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("/api/suhu_tanam");
+      const response = await axios.get(
+        "https://temperature-humidity-api.vercel.app/api/suhu_tanam"
+      );
       setSuhuTanamData(response.data.data);
     } catch (error) {
       console.error("Error fetching the data", error);
@@ -20,17 +22,17 @@ const SuhuTanamTable = () => {
 
   const fetchTanamOptions = async () => {
     try {
-      const response = await axios.get("/api/tanam");
+      const response = await axios.get(
+        "https://temperature-humidity-api.vercel.app/api/tanam"
+      );
       setTanamOptions(response.data.data);
     } catch (error) {
       console.error("Error fetching Tanam options", error);
     }
   };
 
-  useEffect(() => {
-    fetchData();
-    fetchTanamOptions();
-  }, []);
+  fetchData();
+  fetchTanamOptions();
 
   const handleOpenModal = (suhuTanam = null) => {
     setSelectedSuhuTanam(suhuTanam);
