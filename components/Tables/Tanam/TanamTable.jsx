@@ -36,7 +36,9 @@ const TanamTable = () => {
 
   const handleDelete = async id => {
     try {
-      await axios.delete(`/api/tanam/${id}`);
+      await axios.delete(
+        `https://temperature-humidity-api.vercel.app/api/tanam/${id}`
+      );
       fetchData();
     } catch (error) {
       console.error("Error deleting the data", error);

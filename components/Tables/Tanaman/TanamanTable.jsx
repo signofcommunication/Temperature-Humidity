@@ -23,7 +23,9 @@ const TanamanTable = () => {
 
   const handleDelete = async id => {
     try {
-      await axios.delete(`/api/tanaman/${id}`);
+      await axios.delete(
+        `https://temperature-humidity-api.vercel.app/api/tanaman/${id}`
+      );
       fetchData();
     } catch (error) {
       console.error("Error deleting the data", error);
