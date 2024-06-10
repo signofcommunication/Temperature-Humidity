@@ -64,7 +64,10 @@ const TanamFormModal = ({
     e.preventDefault();
     try {
       if (selectedTanam) {
-        await axios.patch(`/api/tanam/${selectedTanam.Tanam_no}`, formValues);
+        await axios.patch(
+          `https://temperature-humidity-api.vercel.app/api/tanam/${selectedTanam.Tanam_no}`,
+          formValues
+        );
       } else {
         await axios.post("/api/tanam", formValues);
       }

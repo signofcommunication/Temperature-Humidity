@@ -45,11 +45,14 @@ const SuhuTanamFormModal = ({
     try {
       if (selectedSuhuTanam) {
         await axios.patch(
-          `/api/suhu_tanam/${selectedSuhuTanam._id}`,
+          `https://temperature-humidity-api.vercel.app/api/suhu_tanam/${selectedSuhuTanam._id}`,
           formValues
         );
       } else {
-        await axios.post("/api/suhu_tanam", formValues);
+        await axios.post(
+          "https://temperature-humidity-api.vercel.app/api/suhu_tanam",
+          formValues
+        );
       }
       fetchData();
       handleClose();
