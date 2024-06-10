@@ -11,7 +11,9 @@ const KelembapanTanamTable = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("/api/kelembapan_tanam");
+      const response = await axios.get(
+        "https://temperature-humidity-api.vercel.app/api/kelembapan_tanam"
+      );
       setKelembapanTanamData(response.data.data);
     } catch (error) {
       console.error("Error fetching the data", error);
@@ -27,10 +29,8 @@ const KelembapanTanamTable = () => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-    fetchTanamOptions();
-  }, []);
+  fetchData();
+  fetchTanamOptions();
 
   const handleOpenModal = (kelembapanTanam = null) => {
     setSelectedKelembapanTanam(kelembapanTanam);
