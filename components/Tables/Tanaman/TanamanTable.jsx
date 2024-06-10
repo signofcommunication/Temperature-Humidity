@@ -10,16 +10,16 @@ const TanamanTable = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("/api/tanaman");
+      const response = await axios.get(
+        "https://temperature-humidity-api.vercel.app/api/tanaman"
+      );
       setData(response.data.data);
     } catch (error) {
       console.error("Error fetching the data", error);
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  fetchData();
 
   const handleDelete = async id => {
     try {

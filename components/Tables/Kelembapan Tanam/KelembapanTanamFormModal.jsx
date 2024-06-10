@@ -47,11 +47,14 @@ const KelembapanTanamFormModal = ({
     try {
       if (selectedKelembapanTanam) {
         await axios.patch(
-          `/api/kelembapan_tanam/${selectedKelembapanTanam._id}`,
+          `https://temperature-humidity-api.vercel.app/api/kelembapan_tanam/${selectedKelembapanTanam._id}`,
           formValues
         );
       } else {
-        await axios.post("/api/kelembapan_tanam", formValues);
+        await axios.post(
+          "https://temperature-humidity-api.vercel.app/api/kelembapan_tanam",
+          formValues
+        );
       }
       fetchData();
       handleClose();

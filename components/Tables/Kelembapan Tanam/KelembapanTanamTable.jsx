@@ -22,7 +22,9 @@ const KelembapanTanamTable = () => {
 
   const fetchTanamOptions = async () => {
     try {
-      const response = await axios.get("/api/tanam");
+      const response = await axios.get(
+        "https://temperature-humidity-api.vercel.app/api/tanam"
+      );
       setTanamOptions(response.data.data);
     } catch (error) {
       console.error("Error fetching the tanam options", error);
