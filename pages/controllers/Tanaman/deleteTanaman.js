@@ -1,4 +1,4 @@
-import { Tanaman } from "@/pages/model";
+import Tanaman from "@/pages/model/Tanaman";
 
 export default async function deleteTanaman(id) {
   try {

@@ -1,5 +1,9 @@
+import createTanam from "@/pages/controllers/Tanam/createTanam";
+import getTanam from "@/pages/controllers/Tanam/getAllTanam";
+
+// import { getTanam as getAllTanam } from "@/pages/controllers/Tanam/getAllTanam";
 import connectDB from "@/pages/lib/connectDB";
-import { getAllTanam, createTanam } from "@/pages/controllers/Tanam";
+// import { getAllTanam, createTanam } from "@/pages/controllers/Tanam";
 
 export default async function handler(req, res) {
   await connectDB();
@@ -26,7 +30,7 @@ export default async function handler(req, res) {
       }
     case "GET":
       try {
-        const data = await getAllTanam();
+        const data = await getTanam();
         return res.status(200).json({ success: true, data });
       } catch (error) {
         return res.status(400).json({ success: false, error: error.message });

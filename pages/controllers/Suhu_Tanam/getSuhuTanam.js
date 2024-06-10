@@ -1,4 +1,4 @@
-import { Suhu_Tanam } from "@/pages/model";
+import Suhu_Tanam from "@/pages/model/Suhu_Tanam";
 
 export default async function getSuhuTanam() {
   try {

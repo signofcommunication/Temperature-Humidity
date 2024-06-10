@@ -1,5 +1,7 @@
+import deleteTanaman from "@/pages/controllers/Tanaman/deleteTanaman";
+import updateTanaman from "@/pages/controllers/Tanaman/updateTanaman";
 import connectDB from "@/pages/lib/connectDB";
-import { deleteTanaman, updateTanaman } from "@/pages/controllers/Tanaman";
+// import { deleteTanaman, updateTanaman } from "@/pages/controllers/Tanaman";
 
 export default async function handler(req, res) {
   const {

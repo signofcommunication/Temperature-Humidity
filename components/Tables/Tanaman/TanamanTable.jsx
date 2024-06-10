@@ -1,18 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  Box,
-  CircularProgress,
-} from "@mui/material";
 import TanamanFormModal from "./TanamanFormModal";
 import axios from "axios";
+import styles from "./TanamanTable.module.css";
 
 const TanamanTable = () => {
   const [data, setData] = useState([]);
@@ -21,16 +10,16 @@ const TanamanTable = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("/api/tanaman");
+      const response = await axios.get(
+        "https://temperature-humidity-api.vercel.app/api/tanaman"
+      );
       setData(response.data.data);
     } catch (error) {
       console.error("Error fetching the data", error);
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  fetchData();
 
   const handleDelete = async id => {
     try {
@@ -52,61 +41,55 @@ const TanamanTable = () => {
   };
 
   return (
-    <div>
-      <Button variant="contained" color="primary" onClick={handleAdd}>
+    <>
+      <button className={styles.buttonPrimary} onClick={handleAdd}>
         Add Tanaman
-      </Button>
-      <TableContainer component={Paper}>
-        <Table aria-label="tanaman table">
-          <TableHead>
-            <TableRow>
-              <TableCell>ID Tanaman</TableCell>
-              <TableCell>Nama</TableCell>
-              <TableCell align="right">Suhu</TableCell>
-              <TableCell align="right">Kelembapan</TableCell>
-              <TableCell align="right">Panen</TableCell>
-              <TableCell>Keterangan</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data ? (
-              data.map(row => (
-                <TableRow key={row.id}>
-                  <TableCell component="th" scope="row">
-                    {row.Tanaman_ID}
-                  </TableCell>
-                  <TableCell>{row.Nama}</TableCell>
-                  <TableCell align="right">{row.Suhu}</TableCell>
-                  <TableCell align="right">{row.Kelembapan}</TableCell>
-                  <TableCell align="right">{row.Panen}</TableCell>
-                  <TableCell>{row.Keterangan}</TableCell>
-                  <TableCell>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleEdit(row)}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={() => handleDelete(row.id)}
-                    >
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <Box sx={{ display: "flex" }}>
-                <CircularProgress />
-              </Box>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      </button>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>Tanaman_ID</th>
+            <th>Nama</th>
+            <th>Suhu</th>
+            <th>Kelembapan</th>
+            <th>Panen</th>
+            <th>Keterangan</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.length === 0 ? (
+            <tr>
+              <td colSpan="7">Loading...</td>
+            </tr>
+          ) : (
+            data.map(row => (
+              <tr key={row.id}>
+                <td>{row.Tanaman_ID}</td>
+                <td>{row.Nama}</td>
+                <td>{row.Suhu}</td>
+                <td>{row.Kelembapan}</td>
+                <td>{row.Panen}</td>
+                <td>{row.Keterangan}</td>
+                <td className={styles.actions}>
+                  <button
+                    className={styles.buttonPrimary}
+                    onClick={() => handleEdit(row)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className={styles.buttonSecondary}
+                    onClick={() => handleDelete(row.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
       <TanamanFormModal
         open={open}
         handleClose={() => {
@@ -116,7 +99,7 @@ const TanamanTable = () => {
         selectedTanaman={selectedTanaman}
         fetchData={fetchData}
       />
-    </div>
+    </>
   );
 };
 

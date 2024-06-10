@@ -1,8 +1,10 @@
+import createKelembapanTanam from "@/pages/controllers/Kelembapan_Tanam/createKelembapanTanam";
+import getKelembapanTanam from "@/pages/controllers/Kelembapan_Tanam/getKelembapanTanam";
 import connectDB from "@/pages/lib/connectDB";
-import {
-  getKelembapanTanam,
-  createKelembapanTanam,
-} from "@/pages/controllers/Kelembapan_Tanam";
+// import {
+//   getKelembapanTanam,
+//   createKelembapanTanam,
+// } from "@/pages/controllers/Kelembapan_Tanam";
 
 export default async function handler(req, res) {
   connectDB();

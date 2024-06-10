@@ -1,40 +1,42 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styles from "./SuhuTanamFormModal.module.css";
+import styles from "./KelembapanTanamFormModal.module.css";
 
-const SuhuTanamFormModal = ({
+const KelembapanTanamFormModal = ({
   open,
   handleClose,
-  selectedSuhuTanam,
+  selectedKelembapanTanam,
   fetchData,
   tanamOptions,
 }) => {
   const [formValues, setFormValues] = useState({
     Tanam_no: "",
-    Catat_suhu: "",
-    Suhu: "",
+    Catat_kelembapan: "",
+    Kelembapan: "",
     Keterangan: "",
   });
 
   useEffect(() => {
-    if (selectedSuhuTanam) {
+    if (selectedKelembapanTanam) {
       setFormValues({
-        Tanam_no: selectedSuhuTanam.Tanam_no,
-        Catat_suhu: selectedSuhuTanam.Catat_suhu
-          ? new Date(selectedSuhuTanam.Catat_suhu).toISOString().split("T")[0]
+        Tanam_no: selectedKelembapanTanam.Tanam_no,
+        Catat_kelembapan: selectedKelembapanTanam.Catat_kelembapan
+          ? new Date(selectedKelembapanTanam.Catat_kelembapan)
+              .toISOString()
+              .split("T")[0]
           : "",
-        Suhu: selectedSuhuTanam.Suhu["$numberDecimal"],
-        Keterangan: selectedSuhuTanam.Keterangan,
+        Kelembapan: selectedKelembapanTanam.Kelembapan["$numberDecimal"],
+        Keterangan: selectedKelembapanTanam.Keterangan,
       });
     } else {
       setFormValues({
         Tanam_no: "",
-        Catat_suhu: "",
-        Suhu: "",
+        Catat_kelembapan: "",
+        Kelembapan: "",
         Keterangan: "",
       });
     }
-  }, [selectedSuhuTanam]);
+  }, [selectedKelembapanTanam]);
 
   const handleChange = e => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -43,13 +45,16 @@ const SuhuTanamFormModal = ({
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      if (selectedSuhuTanam) {
+      if (selectedKelembapanTanam) {
         await axios.patch(
-          `/api/suhu_tanam/${selectedSuhuTanam._id}`,
+          `https://temperature-humidity-api.vercel.app/api/kelembapan_tanam/${selectedKelembapanTanam._id}`,
           formValues
         );
       } else {
-        await axios.post("/api/suhu_tanam", formValues);
+        await axios.post(
+          "https://temperature-humidity-api.vercel.app/api/kelembapan_tanam",
+          formValues
+        );
       }
       fetchData();
       handleClose();
@@ -58,15 +63,19 @@ const SuhuTanamFormModal = ({
     }
   };
 
-  if (!open) return null;
+  if (!open) return null; // Ensure modal is not rendered when `open` is false
 
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <h2>{selectedSuhuTanam ? "Edit Suhu Tanam" : "Add Suhu Tanam"}</h2>
+        <h2 className={styles.modalTitle}>
+          {selectedKelembapanTanam
+            ? "Edit Kelembapan Tanam"
+            : "Add Kelembapan Tanam"}
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
-            <label htmlFor="Tanam_no" className={styles.label}>
+            <label htmlFor="Tanam_no" className={styles.title_modal}>
               Tanam No
             </label>
             <select
@@ -75,45 +84,42 @@ const SuhuTanamFormModal = ({
               value={formValues.Tanam_no}
               onChange={handleChange}
               required
-              className={styles.input}
             >
               {tanamOptions.map(tanam => (
-                <option key={tanam._id} value={tanam.Tanam_no}>
+                <option key={tanam.Tanam_no} value={tanam.Tanam_no}>
                   {tanam.Tanam_no}
                 </option>
               ))}
             </select>
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="Catat_suhu" className={styles.label}>
-              Tanggal Catat Suhu
+            <label htmlFor="Catat_kelembapan" className={styles.title_modal}>
+              Tanggal Catat Kelembapan
             </label>
             <input
               type="date"
-              id="Catat_suhu"
-              name="Catat_suhu"
-              value={formValues.Catat_suhu}
+              id="Catat_kelembapan"
+              name="Catat_kelembapan"
+              value={formValues.Catat_kelembapan}
               onChange={handleChange}
               required
-              className={styles.input}
             />
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="Suhu" className={styles.label}>
-              Suhu
+            <label htmlFor="Kelembapan" className={styles.title_modal}>
+              Kelembapan
             </label>
             <input
               type="number"
-              id="Suhu"
-              name="Suhu"
-              value={formValues.Suhu}
+              id="Kelembapan"
+              name="Kelembapan"
+              value={formValues.Kelembapan}
               onChange={handleChange}
               required
-              className={styles.input}
             />
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="Keterangan" className={styles.label}>
+            <label htmlFor="Keterangan" className={styles.title_modal}>
               Keterangan
             </label>
             <input
@@ -122,26 +128,18 @@ const SuhuTanamFormModal = ({
               name="Keterangan"
               value={formValues.Keterangan}
               onChange={handleChange}
-              className={styles.input}
             />
           </div>
-          <button
-            type="submit"
-            className={`${styles.button} ${styles.buttonPrimary}`}
-          >
-            {selectedSuhuTanam ? "Update" : "Create"}
-          </button>
-          <button
-            type="button"
-            className={`${styles.button} ${styles.buttonClose}`}
-            onClick={handleClose}
-          >
-            Close
+          <button type="submit" className={styles.buttonPrimary}>
+            {selectedKelembapanTanam ? "Update" : "Create"}
           </button>
         </form>
+        <button onClick={handleClose} className={styles.buttonSecondary}>
+          Close
+        </button>
       </div>
     </div>
   );
 };
 
-export default SuhuTanamFormModal;
+export default KelembapanTanamFormModal;

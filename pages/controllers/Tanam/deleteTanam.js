@@ -1,4 +1,4 @@
-import { Tanam } from "@/pages/model";
+import Tanam from "@/pages/model/Tanam";
 
 export default async function deleteTanam(Tanam_no) {
   try {

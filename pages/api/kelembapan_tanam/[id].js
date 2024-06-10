@@ -1,8 +1,10 @@
+import deleteKelembapanTanam from "@/pages/controllers/Kelembapan_Tanam/deleteKelembapanTanam";
+import updateKelembapanTanam from "@/pages/controllers/Kelembapan_Tanam/updateKelembapanTanam";
 import connectDB from "@/pages/lib/connectDB";
-import {
-  updateKelembapanTanam,
-  deleteKelembapanTanam,
-} from "@/pages/controllers/Kelembapan_Tanam";
+// import {
+//   updateKelembapanTanam,
+//   deleteKelembapanTanam,
+// } from "@/pages/controllers/Kelembapan_Tanam";
 
 export default async function handler(req, res) {
   const {
@@ -21,13 +23,11 @@ export default async function handler(req, res) {
 
     case "DELETE":
       const deleteData = await deleteKelembapanTanam(id);
-      return res
-        .status(200)
-        .json({
-          success: true,
-          message: "Data Successfully Deleted",
-          data: deleteData,
-        });
+      return res.status(200).json({
+        success: true,
+        message: "Data Successfully Deleted",
+        data: deleteData,
+      });
       break;
     default:
       break;
